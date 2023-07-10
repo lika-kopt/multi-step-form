@@ -1,0 +1,193 @@
+---
+title: Registration form
+layout: base.njk
+---
+
+<div class="layout-grid main-container form">
+  <div class="sidebar-container">
+    <div class="flex-container sidebar-step" id="sidebar-step1">
+      <div class="circle active">
+        <span class="tab">1</span>
+      </div>
+      <div class="label">
+        <p>Step 1</p>
+        <p>Your info</p>
+      </div>
+    </div>
+
+    <div class="flex-container sidebar-step" id="sidebar-step2">
+      <div class="circle">
+        <span class="tab">2</span>
+      </div>
+      <div class="label">
+        <p>Step 2</p>
+        <p>Select plan</p>
+      </div>
+    </div>
+
+    <div class="flex-container sidebar-step" id="sidebar-step3">
+      <div class="circle">
+        <span class="tab">3</span>
+      </div>
+      <div class="label">
+        <p>Step 3</p>
+        <p>Select add-ons</p>
+      </div>
+    </div>
+
+    <div class="flex-container sidebar-step" id="sidebar-step4">
+      <div class="circle">
+        <span class="tab">4</span>
+      </div>
+      <div class="label">
+        <p>Step 4</p>
+        <p>Summary</p>
+      </div>
+    </div>
+  </div>
+
+  <form id="form" class="form">
+    <div class="form-container">
+      <!-- Step 1 -->
+      <fieldset class="step step1">
+        <div class="intro">
+          <h1>Personal Info</h1>
+          <p>Please provide your name, email address, and phone number.</p>
+        </div>
+
+        <div class="flex-container-step1">
+          <label for="name">Name <span class="field-star" aria-hidden="true">*</span></label>
+          <span class="hint">E.g., Jon Doe</span>
+          <input type="text" id="name" name="name" class="form-input" required />
+          <span class="error-message">Please enter your name</span>
+        </div>
+
+        <div class="flex-container-step1">
+          <label for="email">Email <span class="field-star" aria-hidden="true">*</span></label>
+          <span class="hint">E.g., jon.doe@gmail.com</span>
+          <input type="email" id="email" name="email" class="form-input" required />
+          <span class="error-message">Please enter your email</span>
+        </div>
+
+        <div class="flex-container-step1">
+          <label for="phone">Phone <span class="field-star" aria-hidden="true">*</span></label>
+          <span class="hint">E.g., 027000000</span>
+          <input type="tel" id="phone" name="phone" class="form-input" required />
+          <span class="error-message">Please enter your phone</span>
+        </div>
+      </fieldset>
+
+      <!-- Step 2 -->
+      <fieldset class="step step2">
+        <h1>Select your plan</h1>
+        <p>You have the option of monthly or yearly billing.</p>
+        <ul class="plan-container">
+          <li>
+            <label for="arcade">
+              <div class="pricing-column selected">
+                <img src="/imgs/icon-arcade.svg" alt="" />
+                <div class="plan-content">
+                  <p class="plan-name">Arcade</p>
+                  <input type="radio" id="arcade" name="plan" class="form-input" value="Arcade" checked required />
+                  <p class="plan-price">$9/mo</p>
+                  <p class="yearly-info">2 months free</p>
+                </div>
+              </div>
+            </label>
+          </li>
+
+          <li>
+            <label for="advanced">
+              <div class="pricing-column">
+                <img src="/imgs/icon-advanced.svg" alt="" />
+                <p class="plan-name">Advanced</p>
+                <input type="radio" id="advanced" name="plan" class="form-input" value="Advanced" required />
+                <p class="plan-price">$12/mo</p>
+                <p class="yearly-info">2 months free</p>
+              </div>
+            </label>
+          </li>
+
+          <li>
+            <label for="pro">
+              <div class="pricing-column">
+                <img src="/imgs/icon-pro.svg" alt="" />
+                <p class="plan-name">Pro</p>
+                <input type="radio" id="pro" name="plan" class="form-input" value="Pro" required />
+                <p class="plan-price">$15/mo</p>
+                <p class="yearly-info">2 months free</p>
+              </div>
+            </label>
+          </li>
+        </ul>
+
+        <div class="plan">
+          <p id="monthly-plan">Monthly</p>
+          <input type="checkbox" id="toggle" class="checkbox" required />
+          <label for="toggle" class="switch"></label>
+          <p id="annual-plan">Yearly</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="step step3" id="select-addon">
+        <h1>Pick add-ons</h1>
+        <p>Add-ons help enhance your gaming experience.</p>
+
+        <div class="addon-container">
+          <div>
+            <input type="checkbox" name="addons" class="addon" id="online-service" value="Online services" data-addon="Online services" />
+            <label for="online-service">Online service</label>
+          </div>
+
+          <p class="addon-price">+1$/mo</p>
+        </div>
+
+        <div class="addon-container">
+          <div>
+            <input type="checkbox" name="addons" class="addon" id="larger-storage" value="Larger storage" data-addon="Larger storage" />
+            <label for="larger-storage">Larger storage</label>
+          </div>
+
+          <p class="addon-price">+2$/mo</p>
+        </div>
+
+        <div class="addon-container">
+          <div>
+            <input type="checkbox" name="addons" class="addon" id="customisable-profile" value="Customisable profile" data-addon="Customisable profile" />
+            <label for="customisable-profile">Customisable profile</label>
+          </div>
+
+          <p class="addon-price">+2$/mo</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="step step4">
+        <div class="summary-container" id="summary">
+          <h1>Finishing up</h1>
+          <p>Double-check everything looks OK before confirming.</p>
+          <div class="total-container">
+            <div id="selected-plan">
+              <p id="plan-name"></p>
+              <p id="display-plan-price"></p>
+            </div>
+            <button type="button" id="change-plan" class="change-button">Change plan</button>
+            <hr />
+            <div id="selected-addons"></div>
+          </div>
+          <div id="total-price"></div>
+        </div>
+
+        <div class="thank-you hide">
+          <img src="/imgs/icon-thank-you.svg" alt="" />
+          <h1>Thank you</h1>
+          <p>Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please contact as support@support.com</p>
+        </div>
+      </fieldset>
+    </div>
+    <div class="button-container">
+      <button type="button" class="prev visibility-hidden" id="prev-button">Go back</button>
+      <button type="button" class="next" id="next-button">Next step</button>
+      <button type="submit" class="submit hide">Confirm subscription</button>
+    </div>
+  </form>
+</div>
