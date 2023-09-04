@@ -1,16 +1,18 @@
-// Pricing
 const pricingColumns = document.querySelectorAll(".pricing-column");
 const checkbox = document.getElementById("toggle");
+
 const planPrice = document.querySelectorAll(".plan-price");
 const addOnPrice = document.querySelectorAll(".addon-price");
+
 const planOptions = document.querySelectorAll('input[name="plan"]');
+
 const planMonthlyPrice = [9, 12, 15];
 const planAnnualPrice = [90, 120, 150];
 const addOnMonthlyPrice = [1, 2, 2];
 const addOnAnnualPrice = [10, 20, 20];
 
-// Sidebar and Form
 const sidebarTargets = document.querySelectorAll(".circle");
+
 const formValues = {};
 
 // Get all the steps in the form
@@ -19,7 +21,7 @@ const formSteps = document.querySelectorAll(".step");
 // Get the buttons for navigating between steps
 const prevBtns = document.querySelectorAll(".prev");
 const nextBtns = document.querySelectorAll(".next");
-const changePlanBtn = document.getElementById("change-plan");
+const chagePlanBtn = document.getElementById("change-plan");
 
 const selectAddOn = document.getElementById("select-addon");
 const displayAddOn = document.getElementById("selected-addon");
@@ -31,13 +33,6 @@ const selectedPlanDiv = document.getElementById("selected-plan");
 // Set the current step to the first step
 let currentStep = 0;
 let selectedPlan = {};
-
-// Hide all steps at the start
-formSteps.forEach((step, index) => {
-  if (index !== currentStep) {
-    step.style.display = "none";
-  }
-});
 
 // STEP 2 - SELECT PLAN
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -112,6 +107,12 @@ addOns.forEach(function (addOn) {
   });
 });
 
+formSteps.forEach((step, index) => {
+  if (index !== currentStep) {
+    step.style.display = "none";
+  }
+});
+
 // STEP 4 - SUMMARY
 
 const form = document.querySelector("form");
@@ -129,6 +130,7 @@ function handleSubmit(event) {
   // Clear the existing output
   selectedAddOns.innerHTML = "";
   selectedPlanName.innerHTML = "";
+  selectedPlanPrice.innerHTML = "";
   totalPrice.innerHTML = "";
 
   // Display the name of the plan
@@ -138,33 +140,79 @@ function handleSubmit(event) {
   selectedPlanName.textContent = formattedPlan;
 
   // Display the price of the plan
-  const planPrice = document.querySelector(".plan-price").textContent;
-  const formattedPlanPrice = `${planPrice}`;
-  selectedPlanPrice.textContent = formattedPlanPrice;
+  let price;
 
-  /// Display values of the "addons" input
+  switch (plan) {
+    case "Arcade":
+      price = checkbox.checked ? "$90/yr" : "$9/mo";
+      break;
+
+    case "Advanced":
+      price = checkbox.checked ? "$120/yr" : "$12/mo";
+      break;
+
+    case "Pro":
+      price = checkbox.checked ? "$150/yr" : "$15/mo";
+      break;
+
+    default:
+      price = "N/A";
+  }
+
+  selectedPlanPrice.textContent = price;
+
+  // Get the selected addons
+  const selectedAddons = Array.from(document.querySelectorAll('input[name="addons"]:checked')).map((addon) => addon.value);
+
+  // Calculate the total price of addons
+  let addonsPrice = 0;
+
+  selectedAddons.forEach((addon) => {
+    switch (addon) {
+      case "Online services":
+        addonsPrice += 1;
+        break;
+
+      case "Larger storage":
+      case "Customisable profile":
+        addonsPrice += 2;
+        break;
+
+      default:
+        break;
+    }
+  });
+
+  // // Display the selected addons and total price
+  // selectedAddonsList.textContent = selectedAddons.join(", ");
+  // selectedAddonsPrice.textContent = `+${addonsPrice}$`;
+
+  // Display values of the "addons" input
   const addons = data.getAll("addons");
   for (let i = 0; i < addons.length; i++) {
     const addonName = addons[i];
-    const addonPrice = document.querySelectorAll(`.addon[data-addon="${addonName}"].addon-price`).textContent;
+    const addonPrice = document.querySelector(`.addon-price`).textContent;
+
     const addonPriceInteger = parseInt(addonPrice.match(/\d+/)[0]);
+    totalAmount += addonPriceInteger;
+
     const addonNameElement = document.createElement("p");
     const addonPriceElement = document.createElement("p");
-    const addonContainer = document.createElement("div");
 
     addonNameElement.textContent = addonName;
     addonPriceElement.textContent = addonPrice;
+
+    const addonContainer = document.createElement("div");
+
     addonContainer.classList.add("selected-addons-container");
     addonContainer.appendChild(addonNameElement);
     addonContainer.appendChild(addonPriceElement);
     selectedAddOns.appendChild(addonContainer);
-
-    totalAmount += addonPriceInteger;
   }
 
   // Display total price
 
-  const planPriceElement = document.querySelector(".plan-price");
+  const planPriceElement = document.querySelector(".summary-plan-price");
   const planPriceText = planPriceElement.textContent;
   const planPriceInteger = parseInt(planPriceText.match(/\d+/)[0]);
   totalAmount += planPriceInteger;
@@ -182,44 +230,12 @@ function handleSubmit(event) {
   totalPrice.appendChild(totalAmountValueElement);
 }
 
-// Submitting the form
-const submitBtn = document.querySelector(".submit");
-const buttonContainer = document.querySelector(".button-container");
-const thankYouMessage = document.querySelector(".thank-you");
-const summaryContainer = document.querySelector(".summary-container");
-
-submitBtn.addEventListener("click", (event) => {
-  // Prevent the form from submitting
-  event.preventDefault();
-
-  // Hide the button container and show the thank you message
-  buttonContainer.classList.add("hide");
-  thankYouMessage.style.display = "flex";
-  summaryContainer.style.display = "none";
-  prevBtn.classList.add("hide");
-  submitBtn.classList.add("hide");
-});
-
-changePlanBtn.addEventListener("click", function () {
-  if (currentStep <= 0) {
-    return; // do nothing if already at first step
-  }
-
-  formSteps[currentStep].style.display = "none";
-  formSteps[currentStep - 2].style.display = "flex";
-  currentStep -= 2;
-
-  if (sidebarTargets.length > 0) {
-    sidebarTargets[currentStep + 2]?.classList.remove("active");
-    sidebarTargets[currentStep]?.classList.add("active");
-  }
-});
-
-// Hide and show buttons
+// Hide all the steps except the first one
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 const tabTargets = document.querySelectorAll(".tab");
 
+// Hide and show buttons
 function updateButtonState() {
   // Last step
   if (currentStep === tabTargets.length - 1) {
@@ -235,11 +251,12 @@ function updateButtonState() {
   } else {
     nextBtn.classList.remove("visibility-hidden");
     prevBtn.classList.remove("visibility-hidden");
-    submitBtn.classList.add("visibility-hidden");
+    submitBtn.classList.add("hide");
   }
 }
 
-// Moving back and forward between steps
+// BUTTONS
+
 nextBtns.forEach(function (nextBtn) {
   nextBtn.addEventListener("click", (event) => {
     if (currentStep < formSteps.length - 1) {
@@ -264,9 +281,43 @@ prevBtns.forEach(function (prevBtn) {
       currentStep--;
       sidebarTargets[currentStep + 1].classList.remove("active");
       sidebarTargets[currentStep].classList.add("active");
-      updateButtonState();
     }
+    updateButtonState();
   });
+});
+
+const submitBtn = document.querySelector(".submit");
+const buttonContainer = document.querySelector(".button-container");
+const thankYouMessage = document.querySelector(".thank-you");
+const summaryContainer = document.querySelector(".summary-container");
+
+submitBtn.addEventListener("click", (event) => {
+  // Prevent the form from submitting
+  event.preventDefault();
+
+  // Hide the button container and show the thank you message
+  buttonContainer.classList.add("hide");
+  thankYouMessage.style.display = "flex";
+  summaryContainer.style.display = "none";
+  prevBtn.classList.add("hide");
+  submitBtn.classList.add("hide");
+});
+
+chagePlanBtn.addEventListener("click", function () {
+  if (currentStep <= 0) {
+    return; // do nothing if already at first step
+  }
+
+  formSteps[currentStep].style.display = "none";
+  formSteps[currentStep - 2].style.display = "flex";
+  currentStep -= 2;
+  updateButtonState();
+
+  if (sidebarTargets.length > 0) {
+    sidebarTargets[currentStep + 2]?.classList.remove("active");
+    sidebarTargets[currentStep]?.classList.add("active");
+  }
+  updateButtonState();
 });
 
 const formFields = document.querySelectorAll("input[required]");

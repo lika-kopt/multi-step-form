@@ -142,11 +142,6 @@ button:hover,
 
 //* LAYOUT *//
 
-.main-container {
-  border-radius: 0.5rem;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
 form {
   --container-width: 115ch;
   --container-gutter: 2rem;
@@ -157,6 +152,29 @@ form {
   border-radius: 0.5rem;
   margin-top: -5rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.3rem;
+  align-items: start;
+  gap: 0.7rem;
+}
+
+label {
+  color: $primary;
+  font-weight: 600;
+}
+
+.main-container {
+  border-radius: 0.5rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .layout-grid {
@@ -230,26 +248,7 @@ form {
 }
 
 .intro {
-  text-align: left;
   margin-bottom: 1rem;
-}
-
-a {
-  text-decoration: none;
-}
-
-fieldset {
-  border: none;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 1.3rem;
-  align-items: start;
-  gap: 0.7rem;
-}
-
-label {
-  color: $primary;
-  font-weight: 600;
 }
 
 .sidebar-container p {
@@ -272,13 +271,12 @@ label {
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: start;
 }
 
 .hint {
   margin-bottom: 1rem;
   color: $cool-gray;
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
 // STEP 2
@@ -291,10 +289,13 @@ label {
   width: 100%;
 }
 
+.yearly-info {
+  display: none;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
 .pricing-column {
-  position: relative;
-  overflow: hidden;
-  flex: 1 1 100%;
   display: flex;
   flex-direction: row;
   align-items: start;
@@ -303,83 +304,80 @@ label {
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.1s linear;
+  gap: 1rem;
+
+  input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+  }
+
+  .plan-price {
+    color: $tertiary;
+    font-weight: 500;
+  }
 }
 
 .pricing-column:active {
   box-shadow: 0 0 0 1px $secondary;
 }
 
-.plan-price {
-  color: $secondary;
-  font-weight: 500;
-}
-
-.monthly-plan {
-  font-weight: 600;
-}
-
-.switch {
-  display: block;
-  position: relative;
-  display: inline-block;
-  width: 3em;
-  height: 1.6em;
-  background-color: $light-gray;
-  border-radius: 1em;
-  cursor: pointer;
-}
-
-.switch::after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 1.2em;
-  height: 1.2em;
-  border-radius: 1em;
-  background-color: $white;
-  top: 0.2em;
-  left: 0.2em;
-  transition: all 1s;
-}
-
-.checkbox:checked + .switch::after {
-  left: 1.6em;
-}
-
-.checkbox:checked + .switch {
-  background-color: $bg-color;
-}
-
-.checkbox {
-  display: none;
-}
+// .monthly-plan {
+//   font-weight: 600;
+// }
 
 .plan {
   display: flex;
   justify-content: center;
+  background-color: $magnolia;
   gap: 6%;
   align-items: center;
   border-radius: 0.5rem;
+  padding: 1.2rem;
   width: 100%;
-}
 
-.yearly-info {
-  display: none;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-}
+  #monthly-plan {
+    font-weight: 600;
+  }
 
-#monthly-plan {
-  font-weight: 600;
-}
+  .switch {
+    display: block;
+    position: relative;
+    display: inline-block;
+    width: 3em;
+    height: 1.6em;
+    background-color: $light-gray;
+    border-radius: 1em;
+    cursor: pointer;
+  }
 
-input[type="radio"] {
-  opacity: 0;
-  position: absolute;
+  .switch::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 1em;
+    background-color: $white;
+    top: 0.2em;
+    left: 0.2em;
+    transition: all 1s;
+  }
+
+  .checkbox:checked + .switch::after {
+    left: 1.6em;
+  }
+
+  .checkbox:checked + .switch {
+    background-color: $bg-color;
+  }
+
+  .checkbox {
+    display: none;
+  }
 }
 
 .pricing-column:hover {
-  box-shadow: 0 0 0 2px $secondary;
+  border: 1px solid $secondary;
 }
 
 // STEP 3 - ADD-ONS
@@ -392,6 +390,11 @@ input[type="radio"] {
   border-radius: 0.5rem;
   width: 100%;
   justify-content: space-between;
+}
+
+.addon-container input[type="checkbox"]:checked {
+  background-color: $secondary;
+  border: none;
 }
 
 .selected-addon {
@@ -409,13 +412,10 @@ input[type="radio"] {
   display: grid;
   place-content: center;
   appearance: none;
-  background-color: $white;
   margin: 0;
-  font: inherit;
-  color: currentColor;
   width: 1.15em;
   height: 1.15em;
-  border: 0.15em solid currentColor;
+  border: 0.15em solid $light-gray;
   border-radius: 0.15em;
   transform: translateY(-0.075em);
 }
@@ -424,9 +424,10 @@ input[type="radio"] {
   content: "";
   width: 0.65em;
   height: 0.65em;
-  transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em $secondary;
+  box-shadow: inset 1em 1em $white;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
 .addon-container input[type="checkbox"]:checked::before {
@@ -444,10 +445,6 @@ input[type="radio"] {
 .summary-container {
   padding: 2rem 1rem;
   width: 100%;
-  flex-direction: column;
-  align-items: start;
-  text-align: left;
-  border-radius: 0.5rem;
 }
 
 #total-price {
@@ -466,17 +463,17 @@ input[type="radio"] {
   letter-spacing: 0.04rem;
 }
 
-#selected-plan {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .total-container {
   background-color: $magnolia;
   padding: 1rem;
   margin-top: 2rem;
   border-radius: 0.5rem;
+}
+
+#selected-plan {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #plan-name,
@@ -489,6 +486,17 @@ input[type="radio"] {
   letter-spacing: 0.04rem;
 }
 
+.selected-addons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  > p:nth-of-type(2) {
+    letter-spacing: 0.04rem;
+  }
+}
+
+//* THANK YOU CONFIRMATION *//
 .thank-you {
   padding: 2rem;
   flex-direction: column;
@@ -504,17 +512,13 @@ input[type="radio"] {
   }
 }
 
-.selected-addons-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+//* ERROR MESSAGES *//
 
-  > p:nth-of-type(2) {
-    letter-spacing: 0.04rem;
-  }
+.error-message {
+  color: $error;
+  font-size: 0.8em;
+  display: none;
 }
-
-// ERROR MESSAGES
 
 .field-star {
   color: $error;
@@ -531,26 +535,6 @@ input[type="radio"] {
   margin-top: 5px;
 }
 
-.error-message {
-  color: $error;
-  font-size: 0.8em;
-  display: none;
-}
-
-// .form-control {
-//   font-family: system-ui, sans-serif;
-//   font-size: 2rem;
-//   font-weight: bold;
-//   line-height: 1.1;
-//   display: grid;
-//   grid-template-columns: 1em auto;
-//   gap: 0.5em;
-// }
-
-// .form-control + .form-control {
-//   margin-top: 1em;
-// }
-
 //* MOBILE *//
 
 @include breakpoint-up("large") {
@@ -560,10 +544,6 @@ input[type="radio"] {
 
   .plan-container {
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .pricing-column img {
-    margin-bottom: 2rem;
   }
 }
 
@@ -615,7 +595,8 @@ input[type="radio"] {
 // UTILITY CLASSES
 
 .selected {
-  box-shadow: 0 0 0 2px $secondary;
+  background-color: $magnolia;
+  border: 1px solid $secondary;
 }
 
 .hide {
