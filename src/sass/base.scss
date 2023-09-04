@@ -81,7 +81,7 @@ li {
 }
 
 hr {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   border: 1px solid $light-gray;
 }
 
@@ -293,6 +293,7 @@ label {
   display: none;
   font-size: 0.9rem;
   margin-top: 1rem;
+  color: $primary;
 }
 
 .pricing-column {
@@ -304,7 +305,7 @@ label {
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.1s linear;
-  gap: 1rem;
+  gap: 2.5rem;
 
   input[type="radio"] {
     opacity: 0;
@@ -312,7 +313,7 @@ label {
   }
 
   .plan-price {
-    color: $tertiary;
+    color: $cool-gray;
     font-weight: 500;
   }
 }
@@ -320,10 +321,6 @@ label {
 .pricing-column:active {
   box-shadow: 0 0 0 1px $secondary;
 }
-
-// .monthly-plan {
-//   font-weight: 600;
-// }
 
 .plan {
   display: flex;
@@ -476,6 +473,7 @@ label {
   justify-content: space-between;
 }
 
+.plan-name,
 #plan-name,
 #display-plan-price {
   color: $primary;
