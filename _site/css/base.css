@@ -135,11 +135,6 @@ button:hover,
   padding: 2rem 1.3rem;
 }
 
-.main-container {
-  border-radius: 0.5rem;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
 form {
   --container-width: 115ch;
   --container-gutter: 2rem;
@@ -150,6 +145,29 @@ form {
   border-radius: 0.5rem;
   margin-top: -5rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.3rem;
+  align-items: start;
+  gap: 0.7rem;
+}
+
+label {
+  color: hsl(213deg, 96%, 18%);
+  font-weight: 600;
+}
+
+.main-container {
+  border-radius: 0.5rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .layout-grid {
@@ -217,26 +235,7 @@ form {
 }
 
 .intro {
-  text-align: left;
   margin-bottom: 1rem;
-}
-
-a {
-  text-decoration: none;
-}
-
-fieldset {
-  border: none;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 1.3rem;
-  align-items: start;
-  gap: 0.7rem;
-}
-
-label {
-  color: hsl(213deg, 96%, 18%);
-  font-weight: 600;
 }
 
 .sidebar-container p {
@@ -257,13 +256,12 @@ label {
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: start;
 }
 
 .hint {
   margin-bottom: 1rem;
   color: hsl(232.3deg, 12.3%, 49.6%);
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
 .plan-container {
@@ -274,10 +272,13 @@ label {
   width: 100%;
 }
 
+.yearly-info {
+  display: none;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
 .pricing-column {
-  position: relative;
-  overflow: hidden;
-  flex: 1 1 100%;
   display: flex;
   flex-direction: row;
   align-items: start;
@@ -286,22 +287,35 @@ label {
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.1s linear;
+  gap: 1rem;
+}
+.pricing-column input[type=radio] {
+  opacity: 0;
+  position: absolute;
+}
+.pricing-column .plan-price {
+  color: hsl(206deg, 94%, 87%);
+  font-weight: 500;
 }
 
 .pricing-column:active {
   box-shadow: 0 0 0 1px hsl(243deg, 100%, 62%);
 }
 
-.plan-price {
-  color: hsl(243deg, 100%, 62%);
-  font-weight: 500;
+.plan {
+  display: flex;
+  justify-content: center;
+  background-color: hsl(217deg, 100%, 97%);
+  gap: 6%;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 1.2rem;
+  width: 100%;
 }
-
-.monthly-plan {
+.plan #monthly-plan {
   font-weight: 600;
 }
-
-.switch {
+.plan .switch {
   display: block;
   position: relative;
   display: inline-block;
@@ -311,8 +325,7 @@ label {
   border-radius: 1em;
   cursor: pointer;
 }
-
-.switch::after {
+.plan .switch::after {
   content: "";
   display: block;
   position: absolute;
@@ -324,45 +337,18 @@ label {
   left: 0.2em;
   transition: all 1s;
 }
-
-.checkbox:checked + .switch::after {
+.plan .checkbox:checked + .switch::after {
   left: 1.6em;
 }
-
-.checkbox:checked + .switch {
+.plan .checkbox:checked + .switch {
   background-color: hsl(228deg, 100%, 84%);
 }
-
-.checkbox {
+.plan .checkbox {
   display: none;
-}
-
-.plan {
-  display: flex;
-  justify-content: center;
-  gap: 6%;
-  align-items: center;
-  border-radius: 0.5rem;
-  width: 100%;
-}
-
-.yearly-info {
-  display: none;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-}
-
-#monthly-plan {
-  font-weight: 600;
-}
-
-input[type=radio] {
-  opacity: 0;
-  position: absolute;
 }
 
 .pricing-column:hover {
-  box-shadow: 0 0 0 2px hsl(243deg, 100%, 62%);
+  border: 1px solid hsl(243deg, 100%, 62%);
 }
 
 .addon-container {
@@ -373,6 +359,11 @@ input[type=radio] {
   border-radius: 0.5rem;
   width: 100%;
   justify-content: space-between;
+}
+
+.addon-container input[type=checkbox]:checked {
+  background-color: hsl(243deg, 100%, 62%);
+  border: none;
 }
 
 .selected-addon {
@@ -390,13 +381,10 @@ input[type=radio] {
   display: grid;
   place-content: center;
   appearance: none;
-  background-color: hsl(0deg, 0%, 100%);
   margin: 0;
-  font: inherit;
-  color: currentColor;
   width: 1.15em;
   height: 1.15em;
-  border: 0.15em solid currentColor;
+  border: 0.15em solid hsl(229deg, 24%, 87%);
   border-radius: 0.15em;
   transform: translateY(-0.075em);
 }
@@ -405,9 +393,10 @@ input[type=radio] {
   content: "";
   width: 0.65em;
   height: 0.65em;
-  transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em hsl(243deg, 100%, 62%);
+  box-shadow: inset 1em 1em hsl(0deg, 0%, 100%);
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
 .addon-container input[type=checkbox]:checked::before {
@@ -423,10 +412,6 @@ input[type=radio] {
 .summary-container {
   padding: 2rem 1rem;
   width: 100%;
-  flex-direction: column;
-  align-items: start;
-  text-align: left;
-  border-radius: 0.5rem;
 }
 
 #total-price {
@@ -445,17 +430,17 @@ input[type=radio] {
   letter-spacing: 0.04rem;
 }
 
-#selected-plan {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .total-container {
   background-color: hsl(217deg, 100%, 97%);
   padding: 1rem;
   margin-top: 2rem;
   border-radius: 0.5rem;
+}
+
+#selected-plan {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #plan-name,
@@ -465,6 +450,15 @@ input[type=radio] {
 }
 
 #display-plan-price {
+  letter-spacing: 0.04rem;
+}
+
+.selected-addons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.selected-addons-container > p:nth-of-type(2) {
   letter-spacing: 0.04rem;
 }
 
@@ -481,13 +475,10 @@ input[type=radio] {
   text-align: center;
 }
 
-.selected-addons-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.selected-addons-container > p:nth-of-type(2) {
-  letter-spacing: 0.04rem;
+.error-message {
+  color: hsl(354deg, 84%, 57%);
+  font-size: 0.8em;
+  display: none;
 }
 
 .field-star {
@@ -505,12 +496,6 @@ input[type=radio] {
   margin-top: 5px;
 }
 
-.error-message {
-  color: hsl(354deg, 84%, 57%);
-  font-size: 0.8em;
-  display: none;
-}
-
 @media (min-width: 64em) {
   .label {
     display: block;
@@ -518,10 +503,6 @@ input[type=radio] {
 
   .plan-container {
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .pricing-column img {
-    margin-bottom: 2rem;
   }
 }
 @media (min-width: 1200px) {
@@ -569,7 +550,8 @@ input[type=radio] {
   }
 }
 .selected {
-  box-shadow: 0 0 0 2px hsl(243deg, 100%, 62%);
+  background-color: hsl(217deg, 100%, 97%);
+  border: 1px solid hsl(243deg, 100%, 62%);
 }
 
 .hide {
