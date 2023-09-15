@@ -17,6 +17,8 @@ body {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   font-family: sans-serif;
   font-size: 100%;
@@ -78,7 +80,7 @@ li {
 }
 
 hr {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   border: 1px solid hsl(229deg, 24%, 87%);
 }
 
@@ -124,15 +126,16 @@ button:hover,
 }
 
 .button-container {
+  display: none;
+}
+
+#mobile {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 1rem;
   background-color: hsl(0deg, 0%, 100%);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 2rem 1.3rem;
+  margin-top: auto;
+  padding: 1rem 1.3rem;
 }
 
 form {
@@ -143,8 +146,9 @@ form {
   margin-inline: auto;
   background-color: hsl(0deg, 0%, 100%);
   border-radius: 0.5rem;
-  margin-top: -5rem;
+  margin-top: -5.5rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin-bottom: 1rem;
 }
 
 a {
@@ -157,7 +161,6 @@ fieldset {
   flex-direction: column;
   padding: 2rem 1.3rem;
   align-items: start;
-  gap: 0.7rem;
 }
 
 label {
@@ -187,15 +190,16 @@ label {
 .sidebar-container {
   background-image: url("/imgs/bg-sidebar-mobile.svg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position-y: 100%;
   padding: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  height: 13rem;
-  margin-top: -2rem;
+  height: 14rem;
+  margin-top: -4rem;
 }
 
 .label {
@@ -215,14 +219,14 @@ label {
 }
 
 .circle {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   border: 1px solid hsl(0deg, 0%, 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 }
 .circle span {
@@ -240,6 +244,10 @@ label {
 
 .sidebar-container p {
   color: hsl(0deg, 0%, 100%);
+}
+
+.step1 {
+  gap: 1rem;
 }
 
 .step1 input {
@@ -276,6 +284,7 @@ label {
   display: none;
   font-size: 0.9rem;
   margin-top: 1rem;
+  color: hsl(213deg, 96%, 18%);
 }
 
 .pricing-column {
@@ -287,14 +296,14 @@ label {
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.1s linear;
-  gap: 1rem;
+  gap: 2.5rem;
 }
 .pricing-column input[type=radio] {
   opacity: 0;
   position: absolute;
 }
 .pricing-column .plan-price {
-  color: hsl(206deg, 94%, 87%);
+  color: hsl(232.3deg, 12.3%, 49.6%);
   font-weight: 500;
 }
 
@@ -353,12 +362,19 @@ label {
 
 .addon-container {
   display: flex;
-  padding: 2rem;
+  padding: 1rem;
   margin-bottom: 0.5rem;
   border: 1px solid hsl(229deg, 24%, 87%);
   border-radius: 0.5rem;
   width: 100%;
   justify-content: space-between;
+}
+.addon-container p {
+  font-size: 0.8rem;
+}
+
+.addon-container:first-of-type {
+  margin-top: 1rem;
 }
 
 .addon-container input[type=checkbox]:checked {
@@ -410,7 +426,6 @@ label {
 }
 
 .summary-container {
-  padding: 2rem 1rem;
   width: 100%;
 }
 
@@ -443,6 +458,7 @@ label {
   justify-content: space-between;
 }
 
+.plan-name,
 #plan-name,
 #display-plan-price {
   color: hsl(213deg, 96%, 18%);
@@ -505,6 +521,24 @@ label {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+@media (min-width: 480px) {
+  .sidebar-container {
+    background-size: cover;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: hsl(0deg, 0%, 100%);
+    margin-top: auto;
+    padding: 1rem 1.3rem;
+  }
+
+  #mobile {
+    display: none;
+  }
+}
 @media (min-width: 1200px) {
   main {
     width: 75rem;
@@ -526,11 +560,6 @@ label {
   form {
     margin-top: 0;
     box-shadow: none;
-  }
-
-  .button-container {
-    position: relative;
-    background: none;
   }
 
   .sidebar-container {
