@@ -83,7 +83,7 @@ checkbox.addEventListener("change", function () {
     });
 
     addOnPrice.forEach(function (element, i) {
-      element.textContent = `$${addOnMonthlyPrice[i]}/mo`;
+      element.textContent = `+$${addOnMonthlyPrice[i]}/mo`;
     });
 
     monthlyPlan.style.fontWeight = 600;
